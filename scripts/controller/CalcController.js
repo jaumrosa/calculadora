@@ -15,17 +15,40 @@ class CalcController  {
 
     }
 
+    pasteFromClipboard(){
+
+        document.addEventListener('paste', e=>{
+
+            let text = e.clipboardData.getData('Text');
+
+            this.displayCalc = parseFloat(text);
+
+        });
+    }
+
+    copyToClipboard(){
+        let input = document.createElement('input');
+        input.value = this.displayCalc;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand("Copy");
+
+        input.remove();
+
+
+    }
+
     initialize(){
         this.setDisplayDateTime();
         setInterval(() => {
             this.setDisplayDateTime();
         }, 1000);
-        this.setLastNumberToDisplay()
+        this.setLastNumberToDisplay();
+        this.pasteFromClipboard();
     }
 
     initKeyboard(){
         document.addEventListener('keyup', e => {
-
             switch(e.key){
                 case 'Escape':
                     this.clearAll();
@@ -65,6 +88,11 @@ class CalcController  {
                 case '9':
                     this.addOperation(parseInt(e.key));
                     break;
+                
+                case 'c':
+                    if(e.ctrlKey) this.copyToClipboard();
+                    break;
+            
             }
         });
     }
@@ -110,7 +138,6 @@ class CalcController  {
     }
 
     getResult(){
-
         return eval(this._operation.join(""));
     }
 
@@ -121,7 +148,6 @@ class CalcController  {
         this._lastOperator = this.getLastItem();
 
         if (this._operation.length < 3){
-
             let firstItem = this._operation[0];
             this._operation = [firstItem, this._lastOperator, this._lastNumber];
         }
