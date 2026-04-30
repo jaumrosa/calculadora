@@ -8,8 +8,8 @@ class CalcController  {
         this._operation = [];
         this._locale = 'pt-BR';
         this._displayCalcEl = document.querySelector("#display");
-        this._DateEl = document.querySelector("#data");
-        this._TimeEl = document.querySelector("#hora");
+        this._dateEl = document.querySelector("#data");
+        this._timeEl = document.querySelector("#hora");
         this._currentDate;
         this.initialize();
         this.initButtonsEvents();
@@ -229,6 +229,7 @@ class CalcController  {
         } else {
             this.setLastOperation(lastOperation.toString() + '.');
         }
+        3
         this.setLastNumberToDisplay();
     }
 
@@ -314,19 +315,19 @@ class CalcController  {
     }
 
     get displayTime(){
-         return this._TimeEl.innerHTML;
+         return this._timeEl.innerHTML;
     }
 
     set displayTime(value){
-         this._TimeEl.innerHTML = value;
+         this._timeEl.innerHTML = value;
     }
 
     get displayDate(){
-        return this._DateEl.innerHTML;
+        return this._dateEl.innerHTML;
     }
 
     set displayDate(value){
-        this._DateEl.innerHTML = value;
+        this._dateEl.innerHTML = value;
     }
 
     get displayCalc(){
